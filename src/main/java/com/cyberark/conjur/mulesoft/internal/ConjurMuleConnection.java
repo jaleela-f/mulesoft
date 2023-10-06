@@ -20,6 +20,6 @@ public final class ConjurMuleConnection {
   }
 
   public void invalidate() {
-    // do something to invalidate this connection!
+   
   }
 }

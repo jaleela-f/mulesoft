@@ -12,9 +12,8 @@ public class AccessTokenProviderImpl implements AccessTokenProvider {
 
 	@Override
 	public AccessToken getNewAccessToken(ApiClient client) {
-		LOGGER.info("Creating new Access Token");
-		//System.out.println("Creating new Accesstoken");
-        LOGGER.info("New Access Token created: {}", client.getNewAccessToken());
+		LOGGER.info("Start: creating new Access Token");
+
 		return client.getNewAccessToken();
 
 	}
@@ -22,8 +21,8 @@ public class AccessTokenProviderImpl implements AccessTokenProvider {
 	@Override
 	public AccessToken getJwtAccessToken(ApiClient conjurClient, String jwtTokenPath, String authenticatorId) {
 
-        LOGGER.warn("JWT Access Token retrieval is not implemented yet.");
-        return null;
+		LOGGER.warn("JWT Access Token retrieval is not implemented yet.");
+		return null;
 	}
 
 }

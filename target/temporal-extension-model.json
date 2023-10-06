@@ -1,14 +1,14 @@
 {
   "name": "ConjurVaultConnector",
   "description": "This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.",
-  "version": "1.0.84",
+  "version": "1.0.105",
   "vendor": "Mulesoft",
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "conjurvaultconnector",
     "namespace": "http://www.mulesoft.org/schema/mule/conjurvaultconnector",
     "schemaLocation": "http://www.mulesoft.org/schema/mule/conjurvaultconnector/current/mule-conjurvaultconnector.xsd",
-    "schemaVersion": "1.0.84",
+    "schemaVersion": "1.0.105",
     "xsdFileName": "mule-conjurvaultconnector.xsd"
   },
   "resources": [],
@@ -30,188 +30,6 @@
       "parameterGroupModels": [
         {
           "parameters": [
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 1
-              },
-              "allowedStereotypeModels": [],
-              "name": "configId",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 2
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurAccount",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 3
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurApplianceUrl",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 4
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurAuthnLogin",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 5
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurApiKey",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 6
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurSslCertificate",
-              "description": "",
-              "modelProperties": {}
-            },
-            {
-              "type": {
-                "format": "java",
-                "type": "String"
-              },
-              "hasDynamicType": false,
-              "required": true,
-              "isConfigOverride": false,
-              "expressionSupport": "SUPPORTED",
-              "role": "BEHAVIOUR",
-              "dslConfiguration": {
-                "allowsInlineDefinition": true,
-                "allowsReferences": true,
-                "allowTopLevelDefinition": false
-              },
-              "layoutModel": {
-                "password": false,
-                "text": false,
-                "query": false,
-                "order": 7
-              },
-              "allowedStereotypeModels": [],
-              "name": "conjurCertFile",
-              "description": "",
-              "modelProperties": {}
-            },
             {
               "type": {
                 "format": "java",
@@ -308,7 +126,7 @@
                 "password": false,
                 "text": false,
                 "query": false,
-                "order": 8,
+                "order": 1,
                 "tabName": "Advanced"
               },
               "allowedStereotypeModels": [],
@@ -694,7 +512,7 @@
                     "order": 1
                   },
                   "allowedStereotypeModels": [],
-                  "name": "requiredParameter",
+                  "name": "conjurAccount",
                   "description": "",
                   "modelProperties": {}
                 },
@@ -720,32 +538,6 @@
                     "order": 2
                   },
                   "allowedStereotypeModels": [],
-                  "name": "conjurAccount",
-                  "description": "",
-                  "modelProperties": {}
-                },
-                {
-                  "type": {
-                    "format": "java",
-                    "type": "String"
-                  },
-                  "hasDynamicType": false,
-                  "required": true,
-                  "isConfigOverride": false,
-                  "expressionSupport": "SUPPORTED",
-                  "role": "BEHAVIOUR",
-                  "dslConfiguration": {
-                    "allowsInlineDefinition": true,
-                    "allowsReferences": true,
-                    "allowTopLevelDefinition": false
-                  },
-                  "layoutModel": {
-                    "password": false,
-                    "text": false,
-                    "query": false,
-                    "order": 3
-                  },
-                  "allowedStereotypeModels": [],
                   "name": "conjurApplianceUrl",
                   "description": "",
                   "modelProperties": {}
@@ -769,7 +561,7 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 4
+                    "order": 3
                   },
                   "allowedStereotypeModels": [],
                   "name": "conjurAuthnLogin",
@@ -795,7 +587,7 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 5
+                    "order": 4
                   },
                   "allowedStereotypeModels": [],
                   "name": "conjurApiKey",
@@ -821,7 +613,7 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 6
+                    "order": 5
                   },
                   "allowedStereotypeModels": [],
                   "name": "conjurSslCertificate",
@@ -847,62 +639,10 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 7
+                    "order": 6
                   },
                   "allowedStereotypeModels": [],
                   "name": "conjurCertFile",
-                  "description": "",
-                  "modelProperties": {}
-                },
-                {
-                  "type": {
-                    "format": "java",
-                    "type": "String"
-                  },
-                  "hasDynamicType": false,
-                  "required": false,
-                  "isConfigOverride": false,
-                  "expressionSupport": "SUPPORTED",
-                  "role": "BEHAVIOUR",
-                  "dslConfiguration": {
-                    "allowsInlineDefinition": true,
-                    "allowsReferences": true,
-                    "allowTopLevelDefinition": false
-                  },
-                  "layoutModel": {
-                    "password": false,
-                    "text": false,
-                    "query": false,
-                    "order": 8
-                  },
-                  "allowedStereotypeModels": [],
-                  "name": "conjurJwtTokenPath",
-                  "description": "",
-                  "modelProperties": {}
-                },
-                {
-                  "type": {
-                    "format": "java",
-                    "type": "String"
-                  },
-                  "hasDynamicType": false,
-                  "required": false,
-                  "isConfigOverride": false,
-                  "expressionSupport": "SUPPORTED",
-                  "role": "BEHAVIOUR",
-                  "dslConfiguration": {
-                    "allowsInlineDefinition": true,
-                    "allowsReferences": true,
-                    "allowTopLevelDefinition": false
-                  },
-                  "layoutModel": {
-                    "password": false,
-                    "text": false,
-                    "query": false,
-                    "order": 9
-                  },
-                  "allowedStereotypeModels": [],
-                  "name": "conjurAuthenticatorId",
                   "description": "",
                   "modelProperties": {}
                 },
@@ -925,55 +665,10 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 10
+                    "order": 7
                   },
                   "allowedStereotypeModels": [],
                   "name": "key",
-                  "description": "",
-                  "modelProperties": {}
-                },
-                {
-                  "type": {
-                    "format": "java",
-                    "type": "Number",
-                    "annotations": {
-                      "classInformation": {
-                        "classname": "int",
-                        "hasDefaultConstructor": false,
-                        "isInterface": false,
-                        "isInstantiable": false,
-                        "isAbstract": true,
-                        "isFinal": true,
-                        "implementedInterfaces": [],
-                        "parent": "",
-                        "genericTypes": [],
-                        "isMap": false
-                      },
-                      "int": {}
-                    }
-                  },
-                  "hasDynamicType": false,
-                  "required": false,
-                  "isConfigOverride": false,
-                  "expressionSupport": "SUPPORTED",
-                  "defaultValue": "100",
-                  "role": "BEHAVIOUR",
-                  "dslConfiguration": {
-                    "allowsInlineDefinition": true,
-                    "allowsReferences": true,
-                    "allowTopLevelDefinition": false
-                  },
-                  "layoutModel": {
-                    "password": false,
-                    "text": false,
-                    "query": false,
-                    "order": 11
-                  },
-                  "allowedStereotypeModels": [],
-                  "name": "optionalParameter",
-                  "displayModel": {
-                    "displayName": "Friendly Name"
-                  },
                   "description": "",
                   "modelProperties": {}
                 }
@@ -1145,7 +840,7 @@
                     "password": false,
                     "text": false,
                     "query": false,
-                    "order": 12,
+                    "order": 8,
                     "tabName": "Advanced"
                   },
                   "allowedStereotypeModels": [],

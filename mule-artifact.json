@@ -1,3 +1,4 @@
 {
-  "minMuleVersion": "4.4.0"
+  "minMuleVersion": "4.4.0",
+  "logConfigFile" : "/Applications/MuleSoft/Authentication/APIKey Authentication/ConjurConnector Restructured/src/main/resources/log4j2.xml"
 }

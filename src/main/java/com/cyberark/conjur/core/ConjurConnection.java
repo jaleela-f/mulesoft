@@ -18,14 +18,12 @@ import com.cyberark.conjur.sdk.Configuration;
 import com.cyberark.conjur.sdk.endpoint.SecretsApi;
 
 public class ConjurConnection {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConjurConnection.class);
 
 	public static ApiClient getConnection(ConjurConfiguration config) {
-		
-	    
-		LOGGER.info("Calling getConnection()>>");
-		//System.out.println("Calling getConnection()>>");
+
+		LOGGER.info("Start: Calling getConnection()");
 		AccessToken accessToken = null;
 
 		ApiClient client = Configuration.getDefaultApiClient();
@@ -43,12 +41,8 @@ public class ConjurConnection {
 
 		String token = "";
 
-		//System.out.println("API Key >>>>" + conjurApiKey);
-
 		try {
 			if (StringUtils.isNotEmpty(sslCertificate)) {
-                LOGGER.info("Setting SSL Certificate: {}", sslCertificate);
-				//System.out.println("SSL Certificate >>>>" + sslCertificate);
 				sslInputStream = new FileInputStream(sslCertificate);
 			} else {
 				if (StringUtils.isNotEmpty(certFile))
@@ -59,30 +53,23 @@ public class ConjurConnection {
 				client.setSslCaCert(sslInputStream);
 				sslInputStream.close();
 			}
-			//System.out.println("SSL Certificate data >>>>" + sslInputStream.toString());
-
 			if (conjurApiKey != null && !conjurApiKey.isEmpty()) {
-				//System.out.println("API Key >>>>" + conjurApiKey);
 				accessToken = accessTokenProvider.getNewAccessToken(client);
-				LOGGER.info("Access Token >>>>" + accessToken);
-				//System.out.println("Access Token >>>>" + accessToken);
 				if (accessTokenNotNull(accessToken)) {
-					
+
 					token = accessToken.getHeaderValue();
 					client.setAccessToken(token);
 					Configuration.setDefaultApiClient(client);
-					//System.out.println("Connection with conjur is successful");
-                    LOGGER.info("Connection with Conjur is successful");
+					LOGGER.info("Connection with Conjur is successful");
 
-				}
-				else {
-				token = accessToken.getHeaderValue();
-				client.setAccessToken(token);
-				Configuration.setDefaultApiClient(client);
+				} else {
+					token = accessToken.getHeaderValue();
+					client.setAccessToken(token);
+					Configuration.setDefaultApiClient(client);
 				}
 			}
 		} catch (IOException ex) {
-            LOGGER.error("Error setting up Conjur connection: {}", ex.getMessage());
+			LOGGER.error("Error setting up Conjur connection: {}", ex.getMessage());
 
 		}
 
