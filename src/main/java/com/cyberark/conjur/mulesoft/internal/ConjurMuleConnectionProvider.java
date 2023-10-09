@@ -1,5 +1,7 @@
 package com.cyberark.conjur.mulesoft.internal;
 
+import java.util.UUID;
+
 import org.mule.runtime.api.connection.CachedConnectionProvider;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.connection.ConnectionProvider;
@@ -63,6 +65,8 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 
 	Object secretValue;
 
+	String uniqueID = UUID.randomUUID().toString();
+
 	@Override
 	public ConjurMuleConnection connect() throws ConnectionException {
 
@@ -77,7 +81,12 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 		config.setConjurSslCertificate(conjurSslCertificate);
 		config.setConjurCertFile(conjurCertFile);
 
-		ConjurConnection.getConnection(config);
+		try {
+			ConjurConnection.getConnection(config);
+		} catch (ApiException e1) {
+			throw new ConnectionException(e1.getCode() + ":" + e1.getResponseBody());
+
+		}
 		String account = ConjurConnection.getAccount(secretsApi);
 		String[] keys = key.split(",");
 		try {
@@ -88,18 +97,14 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 
 			} else {
 				secretValue = conjurService.getSecret(account, ConjurConstant.CONJUR_KIND, key);
-
 			}
-
 		}
 
 		catch (ApiException e) {
-
-			LOGGER.info("An error occurred while fetching secrets: " + e.getMessage());
-			e.printStackTrace();
+			throw new ConnectionException(e.getCode() + ":" + e.getResponseBody());
 		}
 
-		return new ConjurMuleConnection(secretValue.toString());
+		return new ConjurMuleConnection(uniqueID, secretValue.toString());
 
 	}
 

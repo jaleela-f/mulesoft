@@ -1,14 +1,14 @@
 {
   "name": "ConjurVaultConnector",
   "description": "This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.",
-  "version": "1.0.105",
+  "version": "1.0.5-SNAPSHOT",
   "vendor": "Mulesoft",
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "conjurvaultconnector",
     "namespace": "http://www.mulesoft.org/schema/mule/conjurvaultconnector",
     "schemaLocation": "http://www.mulesoft.org/schema/mule/conjurvaultconnector/current/mule-conjurvaultconnector.xsd",
-    "schemaVersion": "1.0.105",
+    "schemaVersion": "1.0.5-SNAPSHOT",
     "xsdFileName": "mule-conjurvaultconnector.xsd"
   },
   "resources": [],
@@ -188,7 +188,12 @@
           "notifications": [],
           "nestedComponents": [],
           "errors": [
+            "CONJURVAULTCONNECTOR:CODE_403",
             "CONJURVAULTCONNECTOR:RETRY_EXHAUSTED",
+            "CONJURVAULTCONNECTOR:CODE_401",
+            "CONJURVAULTCONNECTOR:CODE_200",
+            "CONJURVAULTCONNECTOR:CODE_404",
+            "CONJURVAULTCONNECTOR:CODE_422",
             "CONJURVAULTCONNECTOR:CONNECTIVITY"
           ],
           "stereotype": {
@@ -912,6 +917,31 @@
     },
     {
       "error": "MULE:CONNECTIVITY",
+      "parent": "MULE:ANY",
+      "handleable": true
+    },
+    {
+      "error": "CONJURVAULTCONNECTOR:CODE_403",
+      "parent": "MULE:ANY",
+      "handleable": true
+    },
+    {
+      "error": "CONJURVAULTCONNECTOR:CODE_401",
+      "parent": "MULE:ANY",
+      "handleable": true
+    },
+    {
+      "error": "CONJURVAULTCONNECTOR:CODE_200",
+      "parent": "MULE:ANY",
+      "handleable": true
+    },
+    {
+      "error": "CONJURVAULTCONNECTOR:CODE_404",
+      "parent": "MULE:ANY",
+      "handleable": true
+    },
+    {
+      "error": "CONJURVAULTCONNECTOR:CODE_422",
       "parent": "MULE:ANY",
       "handleable": true
     }

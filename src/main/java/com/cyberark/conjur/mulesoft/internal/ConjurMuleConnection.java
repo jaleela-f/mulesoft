@@ -7,16 +7,23 @@ package com.cyberark.conjur.mulesoft.internal;
 public final class ConjurMuleConnection {
 
   private final String id;
+  
+  private final Object value;
  
   
 
-  public ConjurMuleConnection(String id) {
+  public ConjurMuleConnection(String id,Object value) {
     this.id = id;
+    this.value =value;
    
   }
 
   public String getId() {
     return id;
+  }
+  
+  public Object getValue() {
+	  return value;
   }
 
   public void invalidate() {

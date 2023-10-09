@@ -1,3 +1,4 @@
+
 package com.cyberark.conjur.mulesoft.internal;
 
 import static org.junit.Assert.assertEquals;
@@ -34,6 +35,7 @@ public class ConjurMuleConnectionProviderTest {
 	public SecretsApi secretsApi;
 
 	public ApiClient apiClient;
+
 	@InjectMocks
 	public ConjurServiceImpl conjurService;
 
@@ -61,7 +63,7 @@ public class ConjurMuleConnectionProviderTest {
 	}
 
 	@Test
-	public void conjurConnection() {
+	public void conjurConnection() throws ApiException {
 
 		try (MockedStatic<ConjurConnection> getConnectionMockStatic = mockStatic(ConjurConnection.class)) {
 
@@ -82,19 +84,18 @@ public class ConjurMuleConnectionProviderTest {
 
 	@Test
 	public void getAccount() {
-		
-        when(secretsApi.getApiClient()).thenReturn(apiClient);
-        
-        when(apiClient.getAccount()).thenReturn("myConjurAccount");
-        
-        String result = ConjurConnection.getAccount(secretsApi);
 
-        verify(secretsApi, times(1)).getApiClient();
-       
-        verify(apiClient, times(1)).getAccount();
-      
-        assertEquals("myConjurAccount", result);
-        
+		when(secretsApi.getApiClient()).thenReturn(apiClient);
+
+		when(apiClient.getAccount()).thenReturn("myConjurAccount");
+
+		String result = ConjurConnection.getAccount(secretsApi);
+
+		verify(secretsApi, times(1)).getApiClient();
+
+		verify(apiClient, times(1)).getAccount();
+
+		assertEquals("myConjurAccount", result);
 
 	}
 
