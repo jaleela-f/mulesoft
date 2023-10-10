@@ -5,7 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import com.cyberark.conjur.sdk.ApiException;
 import com.cyberark.conjur.sdk.endpoint.SecretsApi;
-
+/**
+ * 
+ * Returns the secrets as single/Batch retrieval
+ *
+ */
 public class ConjurServiceImpl implements ConjurService {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(ConjurServiceImpl.class);
@@ -13,17 +17,31 @@ public class ConjurServiceImpl implements ConjurService {
 	SecretsApi secretsApi = new SecretsApi();
 	Object secrets = null;
 
+	/**
+	 * Method to fetch secret based on the key provided
+	 * @param String conjurAccount
+	 * @param String variable_const "variable"
+	 * @param String variableId/key
+	 * @return String secret for the key provided
+	 * @throws ApiException if key not found or data not found
+	 */
 	@Override
-	public String getSecret(String account, String variable_const, String variableId) throws ApiException {
+	public Object getSecret(String account, String variable_const, String variableId) throws ApiException {
 
 		LOGGER.info("Getting secret for account: {}", account);
 		String secrets = secretsApi.getSecret(account, "variable", variableId);
 		LOGGER.info("Secret retrieved successfully.");
 		return secrets;
 	}
-
+	/**
+	 * Method to fetch secret as batch based on the key(s) provided
+	 * @param String  comma separated encoded variableId's/key's
+	 * @param String conjurAccount 
+	 * @return Object secret for the keys provided as JSON
+	 * @throws ApiException if key not found or data not found
+	 */
 	@Override
-	public Object getSecerts(String variableIds, String account) throws ApiException {
+	public Object getBatchSecerts(String variableIds, String account) throws ApiException {
 
 		LOGGER.info("Getting secrets for account: {}", account);
 		String[] keys = variableIds.split(",");

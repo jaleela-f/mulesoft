@@ -111,9 +111,9 @@ public class ConjurMuleConnectionProviderTest {
 
 				try (MockedStatic<Object> getSecretsValMockStatic = mockStatic(Object.class)) {
 					ConjurServiceImpl service = mock(ConjurServiceImpl.class);
-					val = conjurService.getSecerts(key, conjurConfig.getConjurAccount());
-					when(service.getSecerts(key, conjurConfig.getConjurAccount())).thenReturn(val);
-					assertEquals(service.getSecerts(key, conjurConfig.getConjurAccount()), val);
+					val = conjurService.getBatchSecerts(key, conjurConfig.getConjurAccount());
+					when(service.getBatchSecerts(key, conjurConfig.getConjurAccount())).thenReturn(val);
+					assertEquals(service.getBatchSecerts(key, conjurConfig.getConjurAccount()), val);
 				}
 
 			} else {
@@ -122,7 +122,7 @@ public class ConjurMuleConnectionProviderTest {
 
 					ConjurServiceImpl service = mock(ConjurServiceImpl.class);
 
-					secretValue = conjurService.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND,
+					secretValue = (String) conjurService.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND,
 							key);
 
 					when(service.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND, key))

@@ -35,7 +35,7 @@
 			name="org.mule.runtime.core.internal.processor.LoggerMessageProcessor"
 			level="INFO" />
 
-		<AsyncRoot level="INFO">
+		<AsyncRoot level="OFF">
 			<AppenderRef ref="file" />
 			<AppenderRef ref="json-file" />
 		</AsyncRoot>

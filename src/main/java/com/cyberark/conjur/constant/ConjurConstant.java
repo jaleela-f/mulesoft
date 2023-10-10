@@ -1,5 +1,10 @@
 package com.cyberark.conjur.constant;
 
+/**
+ * All error and constants for the Conjur Constant defined
+ * @author Jaleela.FaizurRahman
+ *
+ */
 public class ConjurConstant {
 	
 	/**
@@ -35,14 +40,34 @@ public class ConjurConstant {
 	 * Not Found message.
 	 */
 	public static final String NOT_FOUND = "NotFound";
-	
+	/**
+	 * Conjur connection is successful
+	 */
 	public static final String CODE_200_CONNECTION = "Connection with Conjur is successful";
 	
+	/**
+	 * Secret value successfully retrieved
+	 */
 	public static final String CODE_200_DATA_FOUND = "The secret values was retrieved successfully.";
+	/**
+	 * Invalid authentication credentials
+	 */
 	public static final String CODE_401 ="The request lacks valid authentication credentials.";
+	/**
+	 * Invalid privilege
+	 */
 	public static final String CODE_403 ="The authenticated user lacks the necessary privilege.";
+	/**
+	 * Variable or data not found for single retrieval
+	 */
 	public static final String CODE_404_SINGLE_RETRIEVAL ="The variable does not exist, or it does not have any secret values.";
+	/**
+	 * Variable does not exist or variable does not have data for Batch retrieval
+	 */
 	public static final String CODE_404_BATCH_RETRIEVAL ="At least one variable does not exist, or at least one variable does not have any secret values.";
+	/**
+	 * Missing or invalid parameter
+	 */
 	public static final String CODE_422 ="A request parameter was missing or invalid.";
 	
 

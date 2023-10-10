@@ -64,11 +64,13 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 	ConjurService conjurService = new ConjurServiceImpl();
 
 	Object secretValue;
+	int errorCode;
+	String errorMsg;
 
 	String uniqueID = UUID.randomUUID().toString();
 
 	@Override
-	public ConjurMuleConnection connect() throws ConnectionException {
+	public ConjurMuleConnection connect() throws ConnectionException{
 
 		LOGGER.info("Calling Demo Connection Provider connect()");
 
@@ -81,30 +83,49 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 		config.setConjurSslCertificate(conjurSslCertificate);
 		config.setConjurCertFile(conjurCertFile);
 
-		try {
-			ConjurConnection.getConnection(config);
-		} catch (ApiException e1) {
-			throw new ConnectionException(e1.getCode() + ":" + e1.getResponseBody());
+		
+			try {
+				ConjurConnection.getConnection(config);
+			} catch (ApiException e) {
+				LOGGER.error("Status Code:"+e.getCode());
+				LOGGER.error("Reason:"+e.getResponseBody());
+				LOGGER.error("Message:"+e.getMessage());
+				errorCode =e.getCode();
+				errorMsg = e.getResponseBody();
+			}
 
-		}
-		String account = ConjurConnection.getAccount(secretsApi);
-		String[] keys = key.split(",");
-		try {
+			String account = ConjurConnection.getAccount(secretsApi);
+			String[] keys = key.split(",");
 
 			if (keys.length > 1) {
 
-				secretValue = conjurService.getSecerts(key, account);
+				try {
+					secretValue = conjurService.getBatchSecerts(key, account);
+				} catch (ApiException e) {
+					
+					LOGGER.error("Status Code:"+e.getCode());
+					LOGGER.error("Reason:"+e.getResponseBody());
+					LOGGER.error("Message:"+e.getMessage());
+					errorCode =e.getCode();
+					errorMsg = e.getMessage();
+					throw new ConnectionException(e.getCode() +e.getResponseBody()+e.getMessage());
+				}
 
 			} else {
-				secretValue = conjurService.getSecret(account, ConjurConstant.CONJUR_KIND, key);
+				try {
+					secretValue = conjurService.getSecret(account, ConjurConstant.CONJUR_KIND, key);
+				} catch (ApiException e) {
+					
+					LOGGER.error("Status Code:"+e.getCode());
+					LOGGER.error("Reason:"+e.getResponseBody());
+					LOGGER.error("Message:"+e.getMessage());
+					errorCode =e.getCode();
+					errorMsg = e.getMessage();
+					throw new ConnectionException(e.getCode() +e.getResponseBody()+e.getMessage());
+				}
 			}
-		}
-
-		catch (ApiException e) {
-			throw new ConnectionException(e.getCode() + ":" + e.getResponseBody());
-		}
-
-		return new ConjurMuleConnection(uniqueID, secretValue.toString());
+		
+		return new ConjurMuleConnection(uniqueID, secretValue.toString(),errorCode,errorMsg);
 
 	}
 

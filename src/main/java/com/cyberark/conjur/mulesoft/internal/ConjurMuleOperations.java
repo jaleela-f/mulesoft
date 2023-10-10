@@ -4,6 +4,7 @@ import static org.mule.runtime.extension.api.annotation.param.MediaType.ANY;
 
 import java.util.Arrays;
 
+import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.extension.api.annotation.error.Throws;
 import org.mule.runtime.extension.api.annotation.param.Config;
 import org.mule.runtime.extension.api.annotation.param.Connection;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.cyberark.conjur.constant.ConjurConstant;
 import com.cyberark.conjur.error.ConjurErrorProvider;
 import com.cyberark.conjur.error.ConjurErrorTypes;
+import com.cyberark.conjur.sdk.ApiException;
 
 /**
  * This class is a container for operations, every public method in this class
@@ -37,20 +39,26 @@ public class ConjurMuleOperations {
 
 		} catch (Exception ex) {
 
-			/*
-			 * String error = ex.getMessage(); String errors[] = error.split(":");
-			 * LOGGER.info("ERror size"+errors.length);
-			 * LOGGER.info("ERror size"+Arrays.toString(errors));
-			 * if(errors[0].equals(ConjurErrorTypes.CODE_401)) { throw new
-			 * ModuleException(ConjurErrorTypes.CODE_401,ex); }else
-			 * if(errors[0].equals(ConjurErrorTypes.CODE_403)) { throw new
-			 * ModuleException(ConjurErrorTypes.CODE_403,ex); }else
-			 * if(errors[0].equals(ConjurErrorTypes.CODE_404)) { throw new
-			 * ModuleException(ConjurErrorTypes.CODE_404,ex); }else
-			 * if(errors[0].equals(ConjurErrorTypes.CODE_422)) { throw new
-			 * ModuleException(ConjurErrorTypes.CODE_422,ex); }
-			 */
-			LOGGER.error(ex.getMessage());
+			String errorCode= String.valueOf(connection.getErrorCode());
+			String errorsMsg =connection.getErrorMsg();
+			
+			LOGGER.info("ERror size" + errorCode);
+			LOGGER.info("ERror size" + errorsMsg);
+			/*if (errorCode.equals(ConjurErrorTypes.CODE_401)) {
+				throw new ModuleException(errorsMsg, ConjurErrorTypes.CODE_401);
+				//return "Status Code:"+errorCode+"Message:"+errorsMsg;
+			} else if (errorCode.equals(ConjurErrorTypes.CODE_403)) {
+				//throw new ModuleException(errorsMsg,ConjurErrorTypes.CODE_403);
+				return "Status Code:"+errorCode+"Message:"+errorsMsg;
+			} else if (errorCode.equals(ConjurErrorTypes.CODE_404)) {
+				//throw new ModuleException(errorsMsg,ConjurErrorTypes.CODE_404);
+				return "Status Code:"+errorCode+"Message:"+errorsMsg;
+			} else if (errorCode.equals(ConjurErrorTypes.CODE_422)) {
+				throw new ModuleException(errorsMsg,ConjurErrorTypes.CODE_422);
+			}*/
+			return "Status Code:"+errorCode+"Message:"+errorsMsg;
+
+			
 		}
 		return "Using  Connection id[" + connection.getId() + "secret" + secretVal.toString() + "]";
 	}

@@ -1,14 +1,14 @@
 {
   "name": "ConjurVaultConnector",
   "description": "This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.",
-  "version": "1.0.5-SNAPSHOT",
+  "version": "1.0.16-SNAPSHOT",
   "vendor": "Mulesoft",
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "conjurvaultconnector",
     "namespace": "http://www.mulesoft.org/schema/mule/conjurvaultconnector",
     "schemaLocation": "http://www.mulesoft.org/schema/mule/conjurvaultconnector/current/mule-conjurvaultconnector.xsd",
-    "schemaVersion": "1.0.5-SNAPSHOT",
+    "schemaVersion": "1.0.16-SNAPSHOT",
     "xsdFileName": "mule-conjurvaultconnector.xsd"
   },
   "resources": [],
@@ -190,8 +190,8 @@
           "errors": [
             "CONJURVAULTCONNECTOR:CODE_403",
             "CONJURVAULTCONNECTOR:RETRY_EXHAUSTED",
-            "CONJURVAULTCONNECTOR:CODE_401",
             "CONJURVAULTCONNECTOR:CODE_200",
+            "CONJURVAULTCONNECTOR:CODE_401",
             "CONJURVAULTCONNECTOR:CODE_404",
             "CONJURVAULTCONNECTOR:CODE_422",
             "CONJURVAULTCONNECTOR:CONNECTIVITY"
