@@ -105,7 +105,7 @@ public class ConjurMuleConnectionProviderTest {
 	@Test
 	public void getSecretVal() throws ApiException {
 
-		apiClient = ConjurConnection.getConnection(conjurConfig);
+		//apiClient = ConjurConnection.getConnection(conjurConfig);
 
 		String[] keys = key.split(",");
 
