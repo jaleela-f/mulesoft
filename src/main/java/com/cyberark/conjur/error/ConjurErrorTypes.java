@@ -1,6 +1,7 @@
 package com.cyberark.conjur.error;
 
 import org.mule.runtime.extension.api.error.ErrorTypeDefinition;
+
 /**
  * Defines the error type for the Conjur authentication and secret retrieval
  * 

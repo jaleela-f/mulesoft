@@ -1,4 +1,3 @@
-
 package com.cyberark.conjur.mulesoft.internal;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +14,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cyberark.conjur.constant.ConjurConstant;
 import com.cyberark.conjur.core.ConjurConnection;
@@ -36,21 +38,22 @@ public class ConjurMuleConnectionProviderTest {
 
 	public ApiClient apiClient;
 
-	@InjectMocks
 	public ConjurServiceImpl conjurService;
-
-	String key = "jenkins-app/dbUserName,jenkins-app/dbPassword,jenkins-app/dbUrl";
-
-	String[] keys = key.split(",");
 
 	@InjectMocks
 	public ConjurConfiguration conjurConfig;
 
+	String key = System.getenv().getOrDefault("KEY_VARIABLES","");
+ 
+
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws UnknownHostException {
 		java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
 		mock(ConjurConfiguration.class);
+		MockitoAnnotations.initMocks(this);
 		apiClient = mock(ApiClient.class);
+		conjurService = mock(ConjurServiceImpl.class);
 		secretsApi = mock(SecretsApi.class);
 		conjurConfig.setConjurAccount(System.getenv().getOrDefault("CONJUR_ACCOUNT", null));
 		conjurConfig.setConjurApplianceUrl(System.getenv().getOrDefault("CONJUR_APPLIANCE_URL", null));
@@ -77,8 +80,8 @@ public class ConjurMuleConnectionProviderTest {
 	@Test
 	public void checkConjurAccount() {
 		conjurConfig = mock(ConjurConfiguration.class);
-		when(conjurConfig.getConjurAccount()).thenReturn("myConjurAccount");
-		assertEquals("myConjurAccount", conjurConfig.getConjurAccount());
+		when(conjurConfig.getConjurAccount()).thenReturn("conjur");
+		assertEquals("conjur", conjurConfig.getConjurAccount());
 
 	}
 
@@ -87,7 +90,7 @@ public class ConjurMuleConnectionProviderTest {
 
 		when(secretsApi.getApiClient()).thenReturn(apiClient);
 
-		when(apiClient.getAccount()).thenReturn("myConjurAccount");
+		when(apiClient.getAccount()).thenReturn("conjur");
 
 		String result = ConjurConnection.getAccount(secretsApi);
 
@@ -95,46 +98,48 @@ public class ConjurMuleConnectionProviderTest {
 
 		verify(apiClient, times(1)).getAccount();
 
-		assertEquals("myConjurAccount", result);
+		assertEquals("conjur", result);
 
 	}
 
 	@Test
-	public void getSecretVal() {
+	public void getSecretVal() throws ApiException {
 
-		Object val;
-		String secretValue;
-		try {
-			apiClient = ConjurConnection.getConnection(conjurConfig);
+		apiClient = ConjurConnection.getConnection(conjurConfig);
 
-			if (keys.length > 1) {
+		String[] keys = key.split(",");
 
-				try (MockedStatic<Object> getSecretsValMockStatic = mockStatic(Object.class)) {
-					ConjurServiceImpl service = mock(ConjurServiceImpl.class);
-					val = conjurService.getBatchSecerts(key, conjurConfig.getConjurAccount());
-					when(service.getBatchSecerts(key, conjurConfig.getConjurAccount())).thenReturn(val);
-					assertEquals(service.getBatchSecerts(key, conjurConfig.getConjurAccount()), val);
-				}
+		if (keys.length > 1) {
 
-			} else {
+			try (MockedStatic<Object> getBatchSecretsMockStatic = mockStatic(Object.class)) {
 
-				try (MockedStatic<Object> getSecretsValMockStatic = mockStatic(Object.class)) {
+				Object batchSecrets = conjurService.getBatchSecerts(key, conjurConfig.getConjurAccount());
 
-					ConjurServiceImpl service = mock(ConjurServiceImpl.class);
+				mock(ConjurServiceImpl.class);
 
-					secretValue = (String) conjurService.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND,
-							key);
-
-					when(service.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND, key))
-							.thenReturn(secretValue);
-					assertEquals(service.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND, key),
-							secretValue);
-				}
-
+				getBatchSecretsMockStatic
+						.when(() -> conjurService.getBatchSecerts(key, conjurConfig.getConjurAccount()))
+						.thenReturn(batchSecrets);
+				assertEquals(conjurService.getBatchSecerts(key, conjurConfig.getConjurAccount()), batchSecrets);
 			}
 
-		} catch (ApiException e) {
-			e.printStackTrace();
+		} else {
+
+			try (MockedStatic<Object> getSecretValMockStatic = mockStatic(Object.class)) {
+
+				Object secretValue = conjurService.getSecret(conjurConfig.getConjurAccount(),
+						ConjurConstant.CONJUR_KIND, key);
+
+				mock(ConjurServiceImpl.class);
+
+				getSecretValMockStatic.when(
+						() -> conjurService.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND, key))
+						.thenReturn(secretValue);
+
+				assertEquals(conjurService.getSecret(conjurConfig.getConjurAccount(), ConjurConstant.CONJUR_KIND, key),
+						secretValue);
+			}
+
 		}
 
 	}
