@@ -59,6 +59,7 @@ public class ConjurMuleConnectionProvider implements ConnectionProvider<ConjurMu
 	private String conjurCertFile;
 	@Parameter
 	private String key;
+	
 
 	private SecretsApi secretsApi = new SecretsApi();
 	ConjurService conjurService = new ConjurServiceImpl();
